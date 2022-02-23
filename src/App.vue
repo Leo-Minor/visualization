@@ -1,32 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<div id="app">
+		<headViews></headViews>
+		<div class="content-box">
+			<leftViews></leftViews>
+			<centerViews @currComp="currComp" :myCurrComp="myCurrComp"></centerViews>
+			<rightViews @updateComp="updateComp" :myCurrComp="myCurrComp"></rightViews>
+		</div>
+	</div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+	import headViews from "./views/headViews.vue"
+	import centerViews from "./views/centerView.vue"
+	import leftViews from "./views/leftView.vue"
+	import rightViews from "./views/rightView.vue"
 
-#nav {
-  padding: 30px;
+	export default {
+		name: 'App',
+		components: {
+			headViews,
+			centerViews,
+			leftViews,
+			rightViews
+		},
+		data(){
+			return{
+				myCurrComp:null
+			}
+		},
+		methods:{
+			updateComp(comp){
+				this.myCurrComp = comp;
+			},
+			currComp(comp){
+				this.myCurrComp = comp;
+			}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+		}
+	}
+</script>
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style  lang="less">
+	.content-box{
+		display: flex;
+		height: calc(100vh - 80px);
+	}
 </style>
